@@ -35,6 +35,22 @@ jobs:
           distribution: 'temurin'
           #architecture: 'amd64'
           cache: maven
+      - name: Generate settings.xml
+        run: |
+          cat <<EOF > ./settings.xml
+          <settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${{ secrets.MAVEN_USERNAME }}</username>
+                <password>${{ secrets.MAVEN_PASSWORD }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
+      - name: Build Maven Package
+        run: mvn -B package --file pom.xml -s ./settings.xml -P TCCC-snapshot-feed -DskipTests
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@v3
         with:
