@@ -71,7 +71,7 @@ jobs:
           path: /home/runner/work/tccc-mai-consumer-marketing-analytics/tccc-mai-consumer-marketing-analytics/target/tccc-dna-marketing-data-platform-1.0-SNAPSHOT.jar
   move-jar-file:
     name: Move Jar File
-    runs-on: [os/windows, group/tccc-markanalytsyn]
+    runs-on: self-hosted
     needs: build
     environment: dev
     env:
