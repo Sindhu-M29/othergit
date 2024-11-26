@@ -90,16 +90,23 @@ jobs:
 
       - name: Install AzCopy
         run: |
+          # Download AzCopy from Microsoft
           Invoke-WebRequest -Uri https://aka.ms/downloadazcopy-v10-windows -OutFile "AzCopy.zip"
+          
+          # Extract AzCopy to the "AzCopy" directory
           Expand-Archive -Path AzCopy.zip -DestinationPath AzCopy
+
+          # Add AzCopy to the PATH
           $env:PATH += ";${PWD}\AzCopy"
 
-      - name: Find AzCopy Installation Path
+      # Step to check if AzCopy is installed and in the path
+      - name: Verify AzCopy Installation
         run: |
           Get-Command AzCopy.exe | Select-Object Source
         shell: pwsh
 
-      - name: Run AzCopy with azcopy.exe
+      # Run AzCopy with the full path
+      - name: Run AzCopy
         run: |
           "${{ github.workspace }}\AzCopy\AzCopy.exe" copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
         shell: pwsh
