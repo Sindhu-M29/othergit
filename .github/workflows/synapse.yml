@@ -91,6 +91,8 @@ jobs:
       - uses: kheiakiyama/install-azcopy-action@v1
         with:
           version: 'v10'
-      
+      - name: Find AzCopy Installation Path
+        run: |
+         Get-Command azcopy | Select-Object Source
       - name: Run AzCopy
         run: ./azcopy --version && ./azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
