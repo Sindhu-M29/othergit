@@ -93,4 +93,4 @@ jobs:
           version: 'v10'
 
       - name: Run AzCopy
-        run: azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
+        run: azcopy --version && azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
