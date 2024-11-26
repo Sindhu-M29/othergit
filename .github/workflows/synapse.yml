@@ -1,4 +1,4 @@
-name: Maven-Deploy-Workflow 
+name: Maven-Deploy-Workflow
 
 on:
   workflow_dispatch:
@@ -28,13 +28,14 @@ jobs:
       MAVEN_OPTS: "-Xss4M"
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up JDK 1.8.0 # Spark 3.3.1 uses 1.8.0_362
         uses: actions/setup-java@v3
-        with: # /usr/lib/jvm/java-8-openjdk-amd64/jre
+        with:
           java-version: '8.0'
           distribution: 'temurin'
-          #architecture: 'amd64'
           cache: maven
+
       - name: Generate settings.xml
         run: |
           cat <<EOF > ./settings.xml
@@ -51,24 +52,16 @@ jobs:
 
       - name: Build Maven Package
         run: mvn -B package --file pom.xml -s ./settings.xml -P TCCC-snapshot-feed -DskipTests
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "serverpassword"
-          replace: ${{ secrets.MAVENSERVERPASSWORD }}
-      - name: Read file contents 1
-        uses: andstor/file-reader-action@v1
-        with:
-          path: "./settings.xml"
-      - name: Clean Maven
-        run: mvn clean
-      - name: Build Maven Package
-        run: mvn -B package --file pom.xml -s ./settings.xml -P TCCC-snapshot-feed -DskipTests # -B run in non-interactive mode
+
+      - name: Debug Artifact Location
+        run: ls -al target
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: jar-artifact
-          path: /home/runner/work/tccc-mai-consumer-marketing-analytics/tccc-mai-consumer-marketing-analytics/target/tccc-dna-marketing-data-platform-1.0-SNAPSHOT.jar
+          path: target/*.jar
+
   move-jar-file:
     name: Move Jar File
     runs-on: self-hosted
@@ -88,14 +81,16 @@ jobs:
         vars.DEV_CDS_JAR_FILE_PATH }}
     steps:
       - uses: actions/checkout@v2
+
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
           name: jar-artifact
-          path: /home/runner/work/tccc-mai-consumer-marketing-analytics/tccc-mai-consumer-marketing-analytics/target
+          path: target
+
       - uses: kheiakiyama/install-azcopy-action@v1
         with:
           version: 'v10'
-      - name: Run Azcopy
-        # run: azcopy copy "/home/runner/work/tccc-mai-consumer-marketing-analytics/tccc-mai-consumer-marketing-analytics/target" "https://storagemai01us2dev.dfs.core.windows.net/metadata/content/lib" --recursive 
-        run: azcopy copy "/home/runner/work/tccc-mai-consumer-marketing-analytics/tccc-mai-consumer-marketing-analytics/target" ${{ env.DEV_FILE_PATH }} --recursive 
+
+      - name: Run AzCopy
+        run: azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
