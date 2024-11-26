@@ -95,4 +95,4 @@ jobs:
         run: |
          Get-Command azcopy | Select-Object Source
       - name: Run AzCopy
-        run: D:/Users/Sindhuilango/azcopy_windows_amd64_10.27.1/azcopy_windows_amd64_10.27.1/azcopy --version && D:/Users/Sindhuilango/azcopy_windows_amd64_10.27.1/azcopy_windows_amd64_10.27.1/azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
+        run: C:/Windows/System32/actions-runner/_work/_temp/2759ead9-4688-4105-b5c8-fd47ffa700e0.ps1:2/azcopy --version && C:/Windows/System32/actions-runner/_work/_temp/2759ead9-4688-4105-b5c8-fd47ffa700e0.ps1:2/azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
