@@ -91,8 +91,13 @@ jobs:
       - uses: kheiakiyama/install-azcopy-action@v1
         with:
           version: 'v10'
+
       - name: Find AzCopy Installation Path
         run: |
-         Get-Command azcopy | Select-Object Source
+          Get-Command azcopy | Select-Object Source
+
       - name: Run AzCopy
-        run: C:/Windows/System32/actions-runner/_work/_temp/2759ead9-4688-4105-b5c8-fd47ffa700e0.ps1:2/azcopy --version && C:/Windows/System32/actions-runner/_work/_temp/2759ead9-4688-4105-b5c8-fd47ffa700e0.ps1:2/azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
+        run: |
+          azcopy --version
+          azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
+        shell: pwsh
