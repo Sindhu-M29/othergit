@@ -108,8 +108,11 @@ jobs:
       # Run AzCopy with the full path
       - name: Run AzCopy with azcopy.exe
         run: |
+          echo "Source: target/*.jar"
+          echo "Destination: ${{ env.DEV_FILE_PATH }}"
           & "C:\Windows\System32\actions-runner\_work\othergit\othergit\AzCopy\azcopy_windows_amd64_10.27.1\azcopy.exe" copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
         shell: pwsh
+        
       - name: Debug AzCopy Command
         run: |
           echo "C:\Windows\System32\actions-runner\_work\othergit\othergit\AzCopy\azcopy_windows_amd64_10.27.1\azcopy.exe copy 'target/*.jar' '${{ env.DEV_FILE_PATH }}' --recursive"
