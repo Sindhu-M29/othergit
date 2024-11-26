@@ -100,10 +100,10 @@ jobs:
           $env:PATH += ";${PWD}\AzCopy"
 
       # Step to check if AzCopy is installed and in the path
-      - name: Verify AzCopy Installation
-        run: |
-          Get-Command AzCopy.exe | Select-Object Source
-        shell: pwsh
+      #- name: Verify AzCopy Installation
+       # run: |
+         # Get-Command AzCopy.exe | Select-Object Source
+       # shell: pwsh
 
       # Run AzCopy with the full path
       - name: Run AzCopy
