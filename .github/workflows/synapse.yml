@@ -91,6 +91,11 @@ jobs:
       - uses: kheiakiyama/install-azcopy-action@v1
         with:
           version: 'v10'
-
+      - name: Install AzCopy
+        run: |
+          Invoke-WebRequest -Uri https://aka.ms/downloadazcopy-v10-windows -OutFile azcopy.zip
+          Expand-Archive -Path azcopy.zip -DestinationPath ./
+          Move-Item -Path ./azcopy_windows_amd64_*/azcopy.exe -Destination C:/azcopy/azcopy.exe
+          echo "C:/azcopy" | Out-File -FilePath $env:GITHUB_PATH -Append
       - name: Run AzCopy
         run: azcopy --version && azcopy copy "target/*.jar" "${{ env.DEV_FILE_PATH }}" --recursive
