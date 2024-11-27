@@ -26,7 +26,7 @@ jobs:
       AZCOPY_TENANT_ID: ${{ secrets.TENANTID }}
       AZCOPY_AUTO_LOGIN_TYPE: SPN
       MAVEN_OPTS: "-Xss4M"
-      DEV_FILE_PATH: ${{ secrets.STORAGE_ACCOUNT_URL }}/<subdirectory-if-any>
+      DEV_FILE_PATH: ${{ secrets.STORAGE_ACCOUNT_URL }}/cokefs/github-files
     steps:
       - uses: actions/checkout@v3
 
