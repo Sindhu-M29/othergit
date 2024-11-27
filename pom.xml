@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Project Metadata -->
-    <groupId>com.example</groupId> <!-- Update this -->
-    <artifactId>example-project</artifactId> <!-- Update this -->
+    <groupId>org.apache.spark</groupId> <!-- Update this -->
+    <artifactId>hello</artifactId> <!-- Update this -->
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Example Maven Project</name>
