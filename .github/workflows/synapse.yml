@@ -111,10 +111,9 @@ jobs:
         run: |
          echo "Source: target/*.jar"
          echo "Destination: ${{ env.DEV_FILE_PATH }}"
-
-
         
          & "C:\Windows\System32\actions-runner\_work\othergit\othergit\AzCopy\azcopy_windows_amd64_10.27.1\azcopy.exe" copy "C:\Windows\System32\actions-runner\_work\your-repo-name\your-repo-name\target\*.jar" "${{ env.DEV_FILE_PATH }}" --recursive --from-to LocalBlob
       - name: Debug AzCopy Command
         run: |
           echo "C:\Windows\System32\actions-runner\_work\othergit\othergit\AzCopy\azcopy_windows_amd64_10.27.1\azcopy.exe copy 'target/*.jar' '${{ env.DEV_FILE_PATH }}' --recursive"
+        
