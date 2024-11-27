@@ -53,7 +53,9 @@ jobs:
         run: |
           Invoke-WebRequest -Uri https://aka.ms/downloadazcopy-v10-windows -OutFile AzCopy.zip
           Expand-Archive -Path AzCopy.zip -DestinationPath AzCopy
+          set PATH=%PATH%;%CD%\AzCopy
           echo "AzCopy installed."
+        shell: cmd
 
       # Step 6: Deploy using AzCopy
       - name: Deploy with AzCopy
