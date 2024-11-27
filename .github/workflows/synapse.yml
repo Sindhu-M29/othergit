@@ -111,6 +111,7 @@ jobs:
         run: |
          echo "Source: target/*.jar"
          echo "Destination: ${{ env.DEV_FILE_PATH }}"
+         azcopy login --tenant-id=28daf73d-021c-4763-9302-44fd8f8f032f
          & "C:\Windows\System32\actions-runner\_work\othergit\othergit\AzCopy\azcopy_windows_amd64_10.27.1\azcopy.exe" copy "C:\Windows\System32\actions-runner\_work\your-repo-name\your-repo-name\target\*.jar" "${{ env.DEV_FILE_PATH }}" --recursive --from-to LocalBlob
       - name: Debug AzCopy Command
         run: |
