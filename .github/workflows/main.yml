@@ -40,9 +40,13 @@ jobs:
         run: mvn package -DskipTests
 
       # Step 4: Verify artifact is built
+          
       - name: Verify Artifact
-        run: dir target/*.jar
+        run: |
+          dir target\*.jar
         shell: cmd
+
+
 
       # Step 5: Install AzCopy
       - name: Install AzCopy
